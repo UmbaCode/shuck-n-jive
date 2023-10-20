@@ -5,24 +5,24 @@ USE: main program file for shuck-n-jive
 */
 
 
-let VERS_STRING = r#"0.01"#;
-let SOFTWARE_NAME = r#"shuck-n-jive"#;
+static VERS_STRING: &str = r#"0.01"#;
+static SOFTWARE_NAME: &str = r#"shuck-n-jive"#;
 
 
 // Main Libraries
-use dict::{ Dict, DictIface };
-use std::collections::HashMap;
-use mysql::*;
-use mysql::prelude::*;
-use chrono::{DateTime, NaiveDate, NaiveDateTime, NaiveTime};
-use chrono::format::ParseError;
-use tera::Tera;
+use dict::{ Dict };
+
+
+
+
+
+
 
 
 
 //#[derive(Debug, PartialEq, Eq)]
 struct authorStruct {
-    // for working with author data
+   /* // for working with author data */ 
     authorId: i32,
     authorFirstName: Option<String>,
     authorIdHash: Option<String>,
@@ -31,12 +31,22 @@ struct authorStruct {
     authorUri: Option<String>,
     authorEmail: Option<String>,
     authorDescription: Option<String>
-};
+}
+
+
+struct mainPageContentBodyStruct {
+    /* This is the structure for the main page */
+    imageLocation: Option<String>,
+    imageDescription: Option<String>,
+    textBody: Option<String>,
+    textTitle: Option<String>,
+    dateFooter: Option<String>,
+    anchorLinkToContent: Option<String>
+
+}
 
 
 
-let mut _dict = Dict::<String>::new();
-let mut book_reviews = HashMap::new();
 
 
 fn filterCharactersForFileName()
@@ -50,6 +60,9 @@ fn filterCharactersForFileName()
 fn main() 
 {
     println!("Sup World");
+
+    let mut _dict = Dict::<String>::new();
+    //    let mut book_reviews = HashMap::new();
 
 
 }
