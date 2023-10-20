@@ -32,7 +32,7 @@ CREATE TABLE article_table (
     article_Title VARCHAR(255),
     article_Keywords VARCHAR(255),
     article_descriptions VARCHAR(255),
-    article_uri VARCHAR(255),
+    article_uri VARCHAR(65536),
     -- date and time
     article_Creation_Date date,
     article_Creation_Time time,
@@ -72,9 +72,9 @@ CREATE TABLE author_table (
     author_First_Name VARCHAR(255),
     author_Middle_Name VARCHAR(255),
     author_Last_Name VARCHAR(255),
-    author_uri VARCHAR(255),
+    author_uri VARCHAR(65536),
     author_email VARCHAR(255),
-    author_description VARCHAR(255)
+    author_description VARCHAR(1024) --longer than 255
 );
 
 
@@ -87,7 +87,7 @@ CREATE TABLE organization_table (
     organization_Logo VARCHAR(255),
     organization_email VARCHAR(255),
     organization_description VARCHAR(255),
-    organization_Uri VARCHAR(255),
+    organization_Uri VARCHAR(65536),
     organization_person_first_name VARCHAR(255),
     organization_person_middle_name VARCHAR(255),
     organization_person_last_name VARCHAR(255),
@@ -111,7 +111,10 @@ CREATE TABLE site_config_table (
     site_config_google_analytics_id VARCHAR(255),
     site_config_intro_sound_playback_delay_by_days TINYINT UNSIGNED,
     site_config_background_image MEDIUMBLOB,
-    site_config_intro_sound MEDIUMBLOB
+    site_config_intro_sound MEDIUMBLOB,
+    -- this is a base64 encoded image
+    site_config_html_icon_base64 text
 );
 
 
+-- end
