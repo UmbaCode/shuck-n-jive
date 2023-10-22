@@ -1,0 +1,27 @@
+[{
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": "My Website Name",
+        "url": "https://example.com",
+    },
+
+
+
+    {
+        // next eg for use on sites with internal search
+        "@context": "http://schema.org",
+        "@type": "WebSite",
+        "name": "Site name",
+        "url": "https://example.com",
+        "sameAs": ["https://facebook.com/mypage",
+            "https://instagram.com/site",
+            "https://twitter.com/name"
+        ],
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "http://example.com/pages/search_results?q={search_term}",
+            "query-input": "required name=search_term"
+        }
+    }
+
+]
