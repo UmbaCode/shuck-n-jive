@@ -4,13 +4,57 @@ ORG: DataHotep Inc.
 USE: main program file for shuck-n-jive
 */
 
-
+// Static variables
 static VERS_STRING: &str = r#"0.01"#;
 static SOFTWARE_NAME: &str = r#"shuck-n-jive"#;
+static MAX_HTML_FILENAME_STRING_SIZE: usize = 255; //type usize for declaring size of a string
+
+
 
 
 // Main Libraries
-use dict::{ Dict };
+//use dict::{ Dict };
+
+
+fn sanitizeString(passedString: &str) -> String
+{
+    //short circuit the function
+    //if passedString is null    
+    //use voca_rs
+    use voca_rs::*;
+    
+    //vector to loop through so we can do what is appropriate
+    let dashVector = vec!["/", ".", "_", "~", " ","="];
+    let voidVector = vec!["!", "$", "&", "'", "(", ")", "*", "+", ",", ";","[","]","@","?", ":","#"];
+     
+    //string buffer 
+    let mut internalStringBuffer = String::with_capacity(MAX_HTML_FILENAME_STRING_SIZE);
+    
+    internalStringBuffer.insert_str(0,&passedString);
+
+    //trim the whitespaces on the end before looping 
+    internalStringBuffer = manipulate::trim(&internalStringBuffer,"");
+
+
+    //replace with dash 
+    for character in dashVector {
+        
+        internalStringBuffer = manipulate::replace_all(&internalStringBuffer, character, "-");
+
+    }
+
+    //replace with nothing
+    for character in voidVector {
+        
+        internalStringBuffer = manipulate::replace_all(&internalStringBuffer, character, "");
+
+    }
+    
+
+    //return lowercase
+    return( case::lower_case(&internalStringBuffer));
+}
+
 
 
 
@@ -46,22 +90,66 @@ struct mainPageContentBodyStruct {
 }
 
 
-
-
-
-fn filterCharactersForFileName()
-{
-    // This function will remove the illegal characters from a file name for a website and replace it 
-    // ":" / "/" / "?" / "#" / "[" / "]" / "@"
-    //"!" / "$" / "&" / "'" / "(" / ")" / "*" / "+" / "," / ";" / "="
-    // "." / "_" / "~"
+enum processStackJobState {
+// these are the states for the process queue for the main program
+    PROCESS_EXIT, //first state should be exit
+    PROCESS_ERROR, //show the error screen.. which is the bulk info
+    PROCESS_HELP, // show the help screen.. which is the bulk info pretty much
+    PROCESS_VERSION, //show the version of the software
+    PROCESS_AUTHOR_LOOKUP, //show the author lookup from the database
 }
+
+
 
 fn main() 
 {
-    println!("Sup World");
+    //use standard collections
+    use std::collections::*; 
 
-    let mut _dict = Dict::<String>::new();
+    let mut mainProcessStack: Vec<processStackJobState> = Vec::new();
+
+    //push the error
+    mainProcessStack.push(processStackJobState::PROCESS_ERROR);
+
+
+
+
+
+
+    // main loop
+    let loop_defeat = 1;
+
+    match loop_defeat {
+        1 => {
+          println!("Its Monday my dudes");
+        },
+        2 => {
+          println!("It's Tuesday my dudes");
+        },
+        3 => {
+          println!("It's Wednesday my dudes");
+        },
+        4 => {
+          println!("It's Thursday my dudes");
+        },
+        5 => {
+          println!("It's Friday my dudes");
+        },
+        6 => {
+          println!("It's Saturday my dudes");
+        },
+        7 => {
+          println!("It's Sunday my dudes");
+        },
+        _ => {
+          println!("Default!")
+        }
+      };
+    
+    
+    println!("Still cooking");
+
+    //let mut _dict = Dict::<String>::new();
     //    let mut book_reviews = HashMap::new();
 
 
