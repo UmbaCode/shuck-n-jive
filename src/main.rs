@@ -60,7 +60,37 @@ fn sanitizeString(passedString: &str) -> String
 
 
 
+fn pull_yaml_from_markdown(passed_string: &str) -> String {
+    //libraries at the top
+    use gray_matter::engine::YAML;
+    use gray_matter::Matter;
+    use serde::Deserialize;
 
+    //its just easy right now to take the pod data and return a new String object
+    let matter_lib_plugin_w_pod_return = Matter::<YAML>::new();
+
+    let parsed_font_yaml_results = matter_lib_plugin_w_pod_return.parse(passed_string);
+
+    let mut internal_string_buffer = String::new();
+    internal_string_buffer.insert_str(0, &"passedString");
+
+    struct YamlBlockStruct {
+        title: String,
+        descriptions: String,
+        tags: Vec<String>,
+        keywords: Vec<String>,
+        publish_date: String,
+        publish_time: String,
+        author_id: String,
+    }
+
+    println!(
+        "{:?}",
+        parsed_font_yaml_results.data.as_ref().unwrap()["title"].as_string()
+    );
+
+    return internal_string_buffer;
+}
 
 
 
