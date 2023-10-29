@@ -9,56 +9,42 @@ static VERS_STRING: &str = r#"0.01"#;
 static SOFTWARE_NAME: &str = r#"shuck-n-jive"#;
 static MAX_HTML_FILENAME_STRING_SIZE: usize = 255; //type usize for declaring size of a string
 
-
-
-
 // Main Libraries
 //use dict::{ Dict };
 
-
-fn sanitizeString(passedString: &str) -> String
-{
+fn sanitizeString(passedString: &str) -> String {
     //short circuit the function
     //if passedString is null
     //use voca_rs
     use voca_rs::*;
 
     //vector to loop through so we can do what is appropriate
-    let dashVector = vec!["/", ".", "_", "~", " ","="];
-    let voidVector = vec!["!", "$", "&", "'", "(", ")", "*", "+", ",", ";","[","]","@","?", ":","#"];
+    let dashVector = vec!["/", ".", "_", "~", " ", "="];
+    let voidVector = vec![
+        "!", "$", "&", "'", "(", ")", "*", "+", ",", ";", "[", "]", "@", "?", ":", "#",
+    ];
 
     //string buffer
     let mut internalStringBuffer = String::with_capacity(MAX_HTML_FILENAME_STRING_SIZE);
 
-    internalStringBuffer.insert_str(0,&passedString);
+    internalStringBuffer.insert_str(0, &passedString);
 
     //trim the whitespaces on the end before looping
-    internalStringBuffer = manipulate::trim(&internalStringBuffer,"");
-
+    internalStringBuffer = manipulate::trim(&internalStringBuffer, "");
 
     //replace with dash
     for character in dashVector {
-
         internalStringBuffer = manipulate::replace_all(&internalStringBuffer, character, "-");
-
     }
 
     //replace with nothing
     for character in voidVector {
-
         internalStringBuffer = manipulate::replace_all(&internalStringBuffer, character, "");
-
     }
 
-
     //return lowercase
-    return( case::lower_case(&internalStringBuffer));
-    }
-
-
-
-
-
+    return case::lower_case(&internalStringBuffer);
+}
 
 fn pull_yaml_from_markdown(passed_string: &str) -> String {
     //libraries at the top
@@ -92,7 +78,6 @@ fn pull_yaml_from_markdown(passed_string: &str) -> String {
     return internal_string_buffer;
 }
 
-
 fn print_markdown_text_to_html_string(passed_string: &str) -> String {
     //this function grabs the markdown document and passes it as html
     use markdown::*;
@@ -104,10 +89,9 @@ fn print_markdown_text_to_html_string(passed_string: &str) -> String {
     return internal_string_buffer;
 }
 
-
 //#[derive(Debug, PartialEq, Eq)]
 struct authorStruct {
-   /* // for working with author data */
+    /* // for working with author data */
     authorId: i32,
     authorFirstName: Option<String>,
     authorIdHash: Option<String>,
@@ -115,9 +99,8 @@ struct authorStruct {
     authorLastName: Option<String>,
     authorUri: Option<String>,
     authorEmail: Option<String>,
-    authorDescription: Option<String>
+    authorDescription: Option<String>,
 }
-
 
 struct mainPageContentBodyStruct {
     /* This is the structure for the main page */
@@ -126,24 +109,19 @@ struct mainPageContentBodyStruct {
     textBody: Option<String>,
     textTitle: Option<String>,
     dateFooter: Option<String>,
-    anchorLinkToContent: Option<String>
-
+    anchorLinkToContent: Option<String>,
 }
 
-
 enum processStackJobState {
-// these are the states for the process queue for the main program
-    PROCESS_EXIT, //first state should be exit
-    PROCESS_ERROR, //show the error screen.. which is the bulk info
-    PROCESS_HELP, // show the help screen.. which is the bulk info pretty much
-    PROCESS_VERSION, //show the version of the software
+    // these are the states for the process queue for the main program
+    processExit,           //first state should be exit
+    PROCESS_ERROR,         //show the error screen.. which is the bulk info
+    PROCESS_HELP,          // show the help screen.. which is the bulk info pretty much
+    PROCESS_VERSION,       //show the version of the software
     PROCESS_AUTHOR_LOOKUP, //show the author lookup from the database
 }
 
-
-
-fn main()
-{
+fn main() {
     //use standard collections
     use std::collections::*;
 
@@ -152,46 +130,38 @@ fn main()
     //push the error
     mainProcessStack.push(processStackJobState::PROCESS_ERROR);
 
-
-
-
-
-
     // main loop
     let loop_defeat = 1;
 
     match loop_defeat {
         1 => {
-          println!("Its Monday my dudes");
-        },
-        2 => {
-          println!("It's Tuesday my dudes");
-        },
-        3 => {
-          println!("It's Wednesday my dudes");
-        },
-        4 => {
-          println!("It's Thursday my dudes");
-        },
-        5 => {
-          println!("It's Friday my dudes");
-        },
-        6 => {
-          println!("It's Saturday my dudes");
-        },
-        7 => {
-          println!("It's Sunday my dudes");
-        },
-        _ => {
-          println!("Default!")
+            println!("Its Monday my dudes");
         }
-      };
-
+        2 => {
+            println!("It's Tuesday my dudes");
+        }
+        3 => {
+            println!("It's Wednesday my dudes");
+        }
+        4 => {
+            println!("It's Thursday my dudes");
+        }
+        5 => {
+            println!("It's Friday my dudes");
+        }
+        6 => {
+            println!("It's Saturday my dudes");
+        }
+        7 => {
+            println!("It's Sunday my dudes");
+        }
+        _ => {
+            println!("Default!")
+        }
+    };
 
     println!("Still cooking");
 
     //let mut _dict = Dict::<String>::new();
     //    let mut book_reviews = HashMap::new();
-
-
 }
