@@ -1,6 +1,6 @@
-/* 
-AUTHOR: RC 
-ORG: DataHotep Inc. 
+/*
+AUTHOR: RC
+ORG: DataHotep Inc.
 USE: main program file for shuck-n-jive
 */
 
@@ -19,41 +19,41 @@ static MAX_HTML_FILENAME_STRING_SIZE: usize = 255; //type usize for declaring si
 fn sanitizeString(passedString: &str) -> String
 {
     //short circuit the function
-    //if passedString is null    
+    //if passedString is null
     //use voca_rs
     use voca_rs::*;
-    
+
     //vector to loop through so we can do what is appropriate
     let dashVector = vec!["/", ".", "_", "~", " ","="];
     let voidVector = vec!["!", "$", "&", "'", "(", ")", "*", "+", ",", ";","[","]","@","?", ":","#"];
-     
-    //string buffer 
+
+    //string buffer
     let mut internalStringBuffer = String::with_capacity(MAX_HTML_FILENAME_STRING_SIZE);
-    
+
     internalStringBuffer.insert_str(0,&passedString);
 
-    //trim the whitespaces on the end before looping 
+    //trim the whitespaces on the end before looping
     internalStringBuffer = manipulate::trim(&internalStringBuffer,"");
 
 
-    //replace with dash 
+    //replace with dash
     for character in dashVector {
-        
+
         internalStringBuffer = manipulate::replace_all(&internalStringBuffer, character, "-");
 
     }
 
     //replace with nothing
     for character in voidVector {
-        
+
         internalStringBuffer = manipulate::replace_all(&internalStringBuffer, character, "");
 
     }
-    
+
 
     //return lowercase
     return( case::lower_case(&internalStringBuffer));
-}
+    }
 
 
 
@@ -93,10 +93,21 @@ fn pull_yaml_from_markdown(passed_string: &str) -> String {
 }
 
 
+fn print_markdown_text_to_html_string(passed_string: &str) -> String {
+    //this function grabs the markdown document and passes it as html
+    use markdown::*;
+
+    let mut internal_string_buffer = String::new(); //internal string buffer
+
+    internal_string_buffer.insert_str(0, &to_html(passed_string));
+
+    return internal_string_buffer;
+}
+
 
 //#[derive(Debug, PartialEq, Eq)]
 struct authorStruct {
-   /* // for working with author data */ 
+   /* // for working with author data */
     authorId: i32,
     authorFirstName: Option<String>,
     authorIdHash: Option<String>,
@@ -131,10 +142,10 @@ enum processStackJobState {
 
 
 
-fn main() 
+fn main()
 {
     //use standard collections
-    use std::collections::*; 
+    use std::collections::*;
 
     let mut mainProcessStack: Vec<processStackJobState> = Vec::new();
 
@@ -175,8 +186,8 @@ fn main()
           println!("Default!")
         }
       };
-    
-    
+
+
     println!("Still cooking");
 
     //let mut _dict = Dict::<String>::new();
