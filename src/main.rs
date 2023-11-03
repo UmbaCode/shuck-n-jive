@@ -66,9 +66,34 @@ enum CommandLineThirdState {
 // Main Libraries
 //use dict::{ Dict };
 
-fn sanitizeString(passedString: &str) -> String {
+fn open_file_and_return_string(file_path_string: &str) -> String {
+    use std::fs::File;
+    use std::io::prelude::*;
+    use std::io::BufReader;
+    use std::path::Path;
+
+    let file_path = Path::new(file_path_string);
+    let display = file_path.display();
+
+    let file_to_open = match File::open(&file_path) {
+        Err(why) => panic!("couldn't open {}: {}", display, why),
+        Ok(file_to_open) => file_to_open,
+    };
+
+    let mut buf_reader = BufReader::new(file_to_open);
+    let mut internal_string_buffer = String::new();
+
+    match buf_reader.read_to_string(&mut internal_string_buffer) {
+        Err(why) => panic!("couldn't read {}: {}", display, why),
+        Ok(internal_string_buffer) => internal_string_buffer,
+    };
+
+    return internal_string_buffer;
+}
+
+fn sanitize_uri_string(passed_string: &str) -> String {
     //short circuit the function
-    //if passedString is null
+    //if passed_string is null
     //use voca_rs
     use voca_rs::*;
 
@@ -81,7 +106,7 @@ fn sanitizeString(passedString: &str) -> String {
     //string buffer
     let mut internalStringBuffer = String::with_capacity(MAX_HTML_FILENAME_STRING_SIZE);
 
-    internalStringBuffer.insert_str(0, &passedString);
+    internalStringBuffer.insert_str(0, &passed_string);
 
     //trim the whitespaces on the end before looping
     internalStringBuffer = manipulate::trim(&internalStringBuffer, "");
@@ -112,7 +137,7 @@ fn pull_yaml_from_markdown(passed_string: &str) -> String {
     let parsed_font_yaml_results = matter_lib_plugin_w_pod_return.parse(passed_string);
 
     let mut internal_string_buffer = String::new();
-    internal_string_buffer.insert_str(0, &"passedString");
+    internal_string_buffer.insert_str(0, &"passed_string");
 
     struct YamlBlockStruct {
         title: String,
