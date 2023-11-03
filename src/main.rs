@@ -5,12 +5,12 @@ USE: main program file for shuck-n-jive
 */
 
 // Static variables
-static VERS_STRING: &str = r#"0.01"#;
-static SOFTWARE_NAME: &str = r#"shuck-n-jive"#;
-static MAX_HTML_FILENAME_STRING_SIZE: usize = 255; //type usize for declaring size of a string
+const VERS_STRING: &str = r#"0.02"#;
+const SOFTWARE_NAME: &str = r#"shuck-n-jive"#;
+const MAX_HTML_FILENAME_STRING_SIZE: usize = 255; //type usize for declaring size of a string
 const MAX_FIRST_COMMAND_STRING_SIZE: usize = 16; //type usize for declaring size of a string
 
-static APPLICATION_HELP_STRING_BLOCK: &str = r#"
+const APPLICATION_HELP_STRING_BLOCK: &str = r#"
 Shuck-N-Jive
 Author: RC
 shuck-n-jive creates a static web site for causing trouble.
@@ -62,9 +62,6 @@ enum CommandLineThirdState {
     ThirdStateYamlDocument,
     ThirdStateMarkdownDocument,
 }
-
-// Main Libraries
-//use dict::{ Dict };
 
 fn open_file_and_return_string(file_path_string: &str) -> String {
     use std::fs::File;
@@ -169,29 +166,29 @@ fn print_markdown_text_to_html_string(passed_string: &str) -> String {
 }
 
 //#[derive(Debug, PartialEq, Eq)]
-struct authorStruct {
+struct AuthorStruct {
     /* // for working with author data */
-    authorId: i32,
-    authorFirstName: Option<String>,
-    authorIdHash: Option<String>,
-    authorMiddleName: Option<String>,
-    authorLastName: Option<String>,
-    authorUri: Option<String>,
-    authorEmail: Option<String>,
-    authorDescription: Option<String>,
+    author_id: i32,
+    author_first_name: String,
+    author_id_hash: String,
+    author_middle_name: String,
+    author_last_name: String,
+    author_uri: String,
+    author_email: String,
+    author_description: String,
 }
 
-struct mainPageContentBodyStruct {
+struct MainPageContentBody {
     /* This is the structure for the main page */
-    imageLocation: Option<String>,
-    imageDescription: Option<String>,
-    textBody: Option<String>,
-    textTitle: Option<String>,
-    dateFooter: Option<String>,
-    anchorLinkToContent: Option<String>,
+    image_location: String,
+    image_description: String,
+    text_body: String,
+    text_title: String,
+    date_footer: String,
+    anchor_link_to_content: String,
 }
 
-enum processStackJobState {
+enum ProcessStackJobState {
     // these are the states for the process queue for the main program
     PROCESS_EXIT,          //first state should be exit
     PROCESS_ERROR,         //show the error screen.. which is the bulk info
@@ -251,42 +248,15 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     dbg!(args);
 
-    let mut mainProcessStack: Vec<processStackJobState> = Vec::new();
+    let mut mainProcessStack: Vec<ProcessStackJobState> = Vec::new();
 
     //push the error
-    mainProcessStack.push(processStackJobState::PROCESS_ERROR);
+    mainProcessStack.push(ProcessStackJobState::PROCESS_ERROR);
 
     // main loop
-    let loop_defeat = 1;
+    //let loop_defeat = 1;
 
-    match loop_defeat {
-        1 => {
-            println!("Its Monday my dudes");
-        }
-        2 => {
-            println!("It's Tuesday my dudes");
-        }
-        3 => {
-            println!("It's Wednesday my dudes");
-        }
-        4 => {
-            println!("It's Thursday my dudes");
-        }
-        5 => {
-            println!("It's Friday my dudes");
-        }
-        6 => {
-            println!("It's Saturday my dudes");
-        }
-        7 => {
-            println!("It's Sunday my dudes");
-        }
-        _ => {
-            println!("Default!")
-        }
-    };
-
-    println!("Still cooking");
+    println!("{}", APPLICATION_HELP_STRING_BLOCK);
 
     //let mut _dict = Dict::<String>::new();
     //    let mut book_reviews = HashMap::new();
