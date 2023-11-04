@@ -37,3 +37,19 @@
     padding: 20px 10px;
     margin-top: 16em;
 }
+
+.snj-main-pre-logo {
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-right: 128px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+
+.snj-main-logo {
+color: #9fd9b3;
+font-size: xx-large;
+font-weight: bold;
+text-shadow: 10px 5px 5px  rgba(0, 0, 0, 0.50);
+}
