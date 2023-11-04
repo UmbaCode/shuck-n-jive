@@ -1,0 +1,39 @@
+.snj-body {
+  background: linear-gradient(#595959, #000000);
+  margin-left: 0px;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  opacity: .85;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.snj-bg-image {
+    background-image: url(imgs/bg_trans_hive.svg);
+}
+
+
+.snj-main-header {
+    background: linear-gradient(#278241, #206536);
+    opacity: 0.85;
+    overflow: hidden;
+    padding: 0px 64px;
+    text-decoration: none;
+    display: flex;
+    justify-content: flex-start;
+    text-align: center;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-bottom-style: inset;
+    border-bottom-width: 0px;
+    padding-bottom: 36px;
+}
+
+.snj-main-footer {
+    background: linear-gradient(#206536,#278241);
+    opacity: 0.85;
+    overflow: hidden;
+    padding: 20px 10px;
+    margin-top: 16em;
+}
