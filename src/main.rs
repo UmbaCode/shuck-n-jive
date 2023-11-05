@@ -4,6 +4,8 @@ ORG: DataHotep Inc.
 USE: main program file for shuck-n-jive
 */
 
+use serde::{Deserialize, Serialize};
+
 // Static variables
 const VERS_STRING: &str = r#"0.02"#;
 const SOFTWARE_NAME: &str = r#"shuck-n-jive"#;
@@ -146,6 +148,21 @@ fn pull_yaml_from_markdown(passed_string: &str) -> String {
         author_id: String,
     }
 
+    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[serde(tag = "type")]
+    struct ArticleStruct<'a> {
+        /* // for working with author data */
+        id: i32,
+        hash: i32,
+        title: &'a str,
+        description: &'a str,
+        datetime: &'a str,
+        datetime_literal: &'a str,
+        author: &'a str,
+        uri: &'a str,
+        image: &'a str,
+    }
+
     println!(
         "{:?}",
         parsed_font_yaml_results.data.as_ref().unwrap()["title"].as_string()
@@ -163,6 +180,24 @@ fn print_markdown_text_to_html_string(passed_string: &str) -> String {
     internal_string_buffer.insert_str(0, &to_html(passed_string));
 
     return internal_string_buffer;
+}
+
+fn process_article_template(passed_articles: Vec<ArticleStruct>) -> String {
+    use tera::Tera;
+
+    let mut tera = Tera::default(); // Prepare the context with some data
+    tera.add_raw_template("index", "HERE").unwrap(); //the index file
+
+    let mut context = tera::Context::new();
+    context.insert("TEST", "THIS IS A TEST STRING");
+
+    context.insert("articles", &passed_articles);
+
+    let rendered = tera.render("index", &context).unwrap();
+
+    println!("{:?}", rendered);
+
+    return rendered;
 }
 
 //#[derive(Debug, PartialEq, Eq)]
