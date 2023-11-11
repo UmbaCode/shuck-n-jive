@@ -5,33 +5,13 @@ USE: main program file for shuck-n-jive
 */
 
 //use serde::{Deserialize, Serialize};
+use clap::{arg, ArgAction, ArgMatches, Command};
+use serde::{Deserialize, Serialize};
 
+mod constants;
 // Static variables
-const VERS_STRING: &str = r#"0.02"#;
-const SOFTWARE_NAME: &str = r#"shuck-n-jive"#;
-const MAX_HTML_FILENAME_STRING_SIZE: usize = 255; //type usize for declaring size of a string
-const MAX_FIRST_COMMAND_STRING_SIZE: usize = 16; //type usize for declaring size of a string
-
-const APPLICATION_HELP_STRING_BLOCK: &str = r#"
-Shuck-N-Jive
-Author: RC
-shuck-n-jive creates a static web site for causing trouble.
-
- Find more information at: https://github.com/UmbaCode/shuck-n-jive
-
-Commands:
-  status        Check the status of the site stored in the database.
-  init          Initialize a database store for static site.
-  generate      Run a particular image on the cluster
-  add           Add an: author, article, etc.
-  delete        Delete an: author, article, etc.
-  modify        Modify an: author, article, etc.
-  help          This page.
-
-  Usage:
-    shuck-n-jive [flags] [options]
-"#;
-
+//
+//
 enum CommandLineFirstState {
     //These establish the First State From the first command given
     FirstStateExit,     //Usually this will mean Break out of the loop
@@ -63,6 +43,31 @@ enum CommandLineThirdState {
     ThirdStateHelp,
     ThirdStateYamlDocument,
     ThirdStateMarkdownDocument,
+}
+
+struct YamlBlockStruct {
+    title: String,
+    descriptions: String,
+    tags: Vec<String>,
+    keywords: Vec<String>,
+    publish_date: String,
+    publish_time: String,
+    author_id: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(tag = "type")]
+struct ArticleStruct<'a> {
+    /* // for working with author data */
+    id: i32,
+    hash: i32,
+    title: &'a str,
+    description: &'a str,
+    datetime: &'a str,
+    datetime_literal: &'a str,
+    author: &'a str,
+    uri: &'a str,
+    image: &'a str,
 }
 
 fn open_file_and_return_string(file_path_string: &str) -> String {
@@ -103,7 +108,7 @@ fn sanitize_uri_string(passed_string: &str) -> String {
     ];
 
     //string buffer
-    let mut internalStringBuffer = String::with_capacity(MAX_HTML_FILENAME_STRING_SIZE);
+    let mut internalStringBuffer = String::with_capacity(constants::MAX_HTML_FILENAME_STRING_SIZE);
 
     internalStringBuffer.insert_str(0, &passed_string);
 
@@ -137,31 +142,6 @@ fn pull_yaml_from_markdown(passed_string: &str) -> String {
 
     let mut internal_string_buffer = String::new();
     internal_string_buffer.insert_str(0, &"passed_string");
-
-    struct YamlBlockStruct {
-        title: String,
-        descriptions: String,
-        tags: Vec<String>,
-        keywords: Vec<String>,
-        publish_date: String,
-        publish_time: String,
-        author_id: String,
-    }
-
-    #[derive(Debug, Clone, Serialize, Deserialize)]
-    #[serde(tag = "type")]
-    struct ArticleStruct<'a> {
-        /* // for working with author data */
-        id: i32,
-        hash: i32,
-        title: &'a str,
-        description: &'a str,
-        datetime: &'a str,
-        datetime_literal: &'a str,
-        author: &'a str,
-        uri: &'a str,
-        image: &'a str,
-    }
 
     println!(
         "{:?}",
@@ -198,6 +178,60 @@ fn process_article_template(passed_articles: Vec<ArticleStruct>) -> String {
     println!("{:?}", rendered);
 
     return rendered;
+}
+
+fn match_generator() -> Command {
+    let mut return_command_obj = Command::new(constants::SOFTWARE_NAME)
+        .about("-")
+        .subcommand_required(true)
+        .arg_required_else_help(true)
+        .allow_external_subcommands(true)
+        .subcommand(
+            Command::new("status").about("Check the status of the site stored in the database."),
+        )
+        .subcommand(Command::new("init").about("Initialize a database store for static site."))
+        .subcommand(Command::new("generate").about("Run a particular image on the cluster"))
+        .subcommand(Command::new("add").about("Add an: author, article, etc."))
+        .subcommand(Command::new("delete").about("Delete an: author, article, etc."))
+        .subcommand(Command::new("modify").about("Modify an: author, article, etc."))
+        .subcommand(Command::new("what").about("What?!"));
+
+    return return_command_obj;
+}
+
+fn matchTheOperations() -> Vec<ProcessStackJobState> {
+    let my_matches = match_generator().get_matches();
+    let mut result1 = Vec::new();
+
+    match my_matches.subcommand() {
+        Some(("status", sub_matches)) => {
+            println!("TESTING");
+        }
+        Some(("init", sub_matches)) => {
+            println!("TESTING");
+        }
+        Some(("generate", sub_matches)) => {
+            println!("TESTING");
+        }
+        Some(("add", sub_matches)) => {
+            println!("TESTING");
+        }
+        Some(("delete", sub_matches)) => {
+            println!("TESTING");
+        }
+        Some(("modify", sub_matches)) => {
+            println!("TESTING");
+        }
+        Some(("help", sub_matches)) => {
+            println!("TESTING");
+        }
+        Some(("what", sub_matches)) => {
+            println!("TESTING");
+        }
+        _ => unreachable!(), // If all subcommands are defined above, anything else is unreachable!()
+    }
+
+    return result1;
 }
 
 //#[derive(Debug, PartialEq, Eq)]
@@ -291,7 +325,7 @@ fn main() {
     // main loop
     //let loop_defeat = 1;
 
-    println!("{}", APPLICATION_HELP_STRING_BLOCK);
+    println!("{}", constants::APPLICATION_HELP_STRING_BLOCK);
 
     //let mut _dict = Dict::<String>::new();
     //    let mut book_reviews = HashMap::new();
