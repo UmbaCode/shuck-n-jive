@@ -4,7 +4,7 @@ ORG: DataHotep Inc.
 USE: main program file for shuck-n-jive
 */
 
-use serde::{Deserialize, Serialize};
+//use serde::{Deserialize, Serialize};
 
 // Static variables
 const VERS_STRING: &str = r#"0.02"#;
@@ -225,11 +225,11 @@ struct MainPageContentBody {
 
 enum ProcessStackJobState {
     // these are the states for the process queue for the main program
-    PROCESS_EXIT,          //first state should be exit
-    PROCESS_ERROR,         //show the error screen.. which is the bulk info
-    PROCESS_HELP,          // show the help screen.. which is the bulk info pretty much
-    PROCESS_VERSION,       //show the version of the software
-    PROCESS_AUTHOR_LOOKUP, //show the author lookup from the database
+    ProcessExit,         //first state should be exit
+    ProcessError,        //show the error screen.. which is the bulk info
+    ProcessHelp,         // show the help screen.. which is the bulk info pretty much
+    ProcessVersion,      //show the version of the software
+    ProcessAuthorLookup, //show the author lookup from the database
 }
 
 fn first_command_state(passed_string: &str) -> CommandLineFirstState {
@@ -286,7 +286,7 @@ fn main() {
     let mut mainProcessStack: Vec<ProcessStackJobState> = Vec::new();
 
     //push the error
-    mainProcessStack.push(ProcessStackJobState::PROCESS_ERROR);
+    mainProcessStack.push(ProcessStackJobState::ProcessError);
 
     // main loop
     //let loop_defeat = 1;
