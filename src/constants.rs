@@ -32,3 +32,5 @@ org
 
 
 */
+
+const GLB_STRING_ARR: &[&str] = &["/author", "/search", "/org"]; // it's slice
