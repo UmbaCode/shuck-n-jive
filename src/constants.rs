@@ -22,3 +22,13 @@ Commands:
   Usage:
     shuck-n-jive [flags] [options]
 "#;
+
+pub const INDEX_HTML_FILE_NAME: &str = "index.html"; //name of html file for the index of page in select diretories.
+
+/*
+author
+search
+org
+
+
+*/

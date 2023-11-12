@@ -9,6 +9,7 @@ use clap::{arg, ArgAction, ArgMatches, Command};
 use serde::{Deserialize, Serialize};
 
 mod constants;
+mod jsonld;
 // Static variables
 //
 //
