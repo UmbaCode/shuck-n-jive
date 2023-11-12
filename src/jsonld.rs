@@ -173,3 +173,67 @@ pub const JSONLD_ARTICLE: &str = r#"
  }
 </script>
 "#;
+
+// The graph method is what we want to utilize
+pub const JSONLD_GRAPH_EXAMPLE: &str = r#"
+<script type="application/ld+json">
+
+{
+ "@context": "http://schema.org",
+  "@graph": [
+{
+ "@type": "Article",
+ "headline": "Extra! Extra! Read alla bout it",
+ "alternativeHeadline": "This article is also about robots and stuff",
+ "image": "http://example.com/image.jpg",
+ "author": "Patrick Coombe",
+ "award": "Best article ever written",
+ "editor": "Craig Mount",
+ "genre": "search engine optimization",
+ "keywords": "seo sales b2b",
+ "wordcount": "1120",
+"publisher": {
+    "@type": "Organization",
+    "name": "Google",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://google.com/logo.jpg"
+    }
+  },
+ "url": "http://www.example.com",
+   "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://google.com/article"
+  },
+ "datePublished": "2015-09-20",
+ "dateCreated": "2015-09-20",
+ "dateModified": "2015-09-20",
+ "description": "We love to do stuff to help people and stuff",
+ "articleBody": "You can paste your entire post in here, and yes it can get really really long."
+ },
+
+{
+
+  "@type": "VideoObject",
+  "name": "Introducing the self-driving bicycle in the Netherlands",
+  "description": "This spring, Google is introducing the self-driving bicycle in Amsterdam, the world's premier cycling city. The Dutch cycle more than any other nation in the world, almost 900 kilometres per year per person, amounting to over 15 billion kilometres annually. The self-driving bicycle enables safe navigation through the city for Amsterdam residents, and furthers Google's ambition to improve urban mobility with technology. Google Netherlands takes enormous pride in the fact that a Dutch team worked on this innovation that will have great impact in their home country.",
+  "thumbnailUrl": [
+    "https://example.com/photos/1x1/photo.jpg",
+    "https://example.com/photos/4x3/photo.jpg",
+    "https://example.com/photos/16x9/photo.jpg"
+   ],
+  "uploadDate": "2016-03-31T08:00:00+08:00",
+  "duration": "PT1M54S",
+  "contentUrl": "https://www.example.com/video/123/file.mp4",
+  "embedUrl": "https://www.example.com/embed/123",
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": { "@type": "WatchAction" },
+    "userInteractionCount": 5647018
+  },
+  "regionsAllowed": "US,NL"
+}
+  ]
+}
+</script>
+"#;
