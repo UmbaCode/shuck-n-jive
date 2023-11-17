@@ -267,49 +267,6 @@ enum ProcessStackJobState {
     ProcessAuthorLookup, //show the author lookup from the database
 }
 
-fn first_command_state(passed_string: &str) -> CommandLineFirstState {
-    const MAX_FIRST_COMMAND_STRING_SIZE: usize = 16; //type usize for declaring size of a string
-
-    use voca_rs::*;
-
-    //let lower_command_state = ;
-
-    let mut internal_string_buffer = String::with_capacity(MAX_FIRST_COMMAND_STRING_SIZE);
-
-    internal_string_buffer.insert_str(0, &case::lower_case(passed_string));
-
-    let mut internel_state_buffer;
-
-    match internal_string_buffer.as_str() {
-        "status" => {
-            internel_state_buffer = CommandLineFirstState::FirstStateStatus;
-        }
-        "init" => {
-            internel_state_buffer = CommandLineFirstState::FirstStateInit;
-        }
-        "generate" => {
-            internel_state_buffer = CommandLineFirstState::FirstStateGenerate;
-        }
-        "add" => {
-            internel_state_buffer = CommandLineFirstState::FirstStateAdd;
-        }
-        "delete" => {
-            internel_state_buffer = CommandLineFirstState::FirstStateDelete;
-        }
-        "modify" => {
-            internel_state_buffer = CommandLineFirstState::FirstStateModify;
-        }
-        "help" => {
-            internel_state_buffer = CommandLineFirstState::FirstStateHelp;
-        }
-        _ => {
-            internel_state_buffer = CommandLineFirstState::FirstStateHelp;
-        }
-    };
-
-    return internel_state_buffer;
-}
-
 fn main() {
     //use standard collections
     use std::collections::*;
@@ -327,6 +284,8 @@ fn main() {
     //let loop_defeat = 1;
 
     println!("{}", constants::APPLICATION_HELP_STRING_BLOCK);
+
+    println!("{}", jsonld::combineJsonldElements());
 
     //let mut _dict = Dict::<String>::new();
     //    let mut book_reviews = HashMap::new();

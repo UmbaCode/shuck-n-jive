@@ -237,3 +237,34 @@ pub const JSONLD_GRAPH_EXAMPLE: &str = r#"
 }
 </script>
 "#;
+
+pub const JSONLD_GRAPH_HEADER: &str = r#"
+<script type="application/ld+json">
+{
+ "@context": "http://schema.org",
+  "@graph": [
+
+  "#;
+
+pub const JSONLD_GRAPH_FOOTER: &str = r#"
+    ]
+}
+</script>
+  "#;
+
+pub fn combineJsonldElements() -> String {
+    //this is a test function to combine some of these json ld stuff and to look at rust concatenation.
+
+    let mut internal_string_buffer = String::new();
+
+    internal_string_buffer.insert_str(
+        0,
+        format!(
+            "{} {} {}",
+            JSONLD_GRAPH_HEADER, JSONLD_ARTICLE, JSONLD_GRAPH_FOOTER
+        )
+        .as_str(),
+    );
+
+    return internal_string_buffer;
+}
